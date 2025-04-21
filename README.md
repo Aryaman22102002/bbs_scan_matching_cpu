@@ -26,7 +26,7 @@ This implementation focuses on:
 
 - Hierarchical BnB search with pruning.
 
-- Tested on real-world LiDAR data from the KITTI Odometry dataset.
+- Tested on real-world LiDAR data from the KITTI Odometry dataset (https://www.cvlibs.net/datasets/kitti/eval_odometry.php).
 
 Includes tools for:
 
