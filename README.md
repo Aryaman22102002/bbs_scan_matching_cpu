@@ -177,4 +177,10 @@ https://github.com/user-attachments/assets/cbed788c-8b98-42a7-a673-2f8840c93634
 
 
 ### Acknowledgements
-I want to thank my course instructor, Prof. Michael Everett, as well as the teaching assistant Adarsh Salagame who helped me immensely not only while doing this project but throughout the course. They were great at teaching and managing the course and were always available and enthusiastic about solving everyone's doubts.
+I want to thank my course instructor, Prof. Michael Everett, as well as the teaching assistant Adarsh Salagame who helped me immensely not only while doing this project but throughout the course. They were great at teaching and managing the course and were always available and enthusiastic about solving everyone's doubts. <br>
+
+This project draws inspiration from the paper "3D-BBS: Global Localization Using Branch-and-Bound Scan Matching for 3D Point Clouds". I gratefully acknowledge the authors for their foundational work. <br>
+
+Additionally, I would like to thank the KITTI Vision Benchmark Suite for providing high-quality datasets used in this implementation.
+
+
