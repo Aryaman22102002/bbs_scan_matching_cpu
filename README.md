@@ -8,6 +8,8 @@
   * [Prerequisites](#prerequisites)
   * [Build Instructions](#build-instructions)
   * [Run the Full Search Localization](#run-the-full-search-localization)
+* [Usage Examples](#usage-examples)
+* [Results](#results)
 * [Acknowledgements](#acknowledgements)
 
 
@@ -103,7 +105,7 @@ Includes tools for:
    ┣ 📜README.md
 ``` 
 
-### Setup & Build Instructions
+### Setup and Build Instructions
 #### Prerequisites
 
 Make sure the following dependencies are installed:
@@ -122,10 +124,56 @@ g++ -std=c++17 src/full_search_main.cpp src/voxel_map.cpp src/transform_utils.cp
 ```
 
 #### Run the Full Search Localization:
-```./run_test```  <br>
+``` ./run_test```  <br>
 
 Make sure KITTI Sequence 00 Velodyne data is located in sequences/00/velodyne/ inside the project root.
 
+
+### Usage Examples
+Run full 4D scan-to-map alignment on Scan 5 using map built from Scans 0–3:<br>
+
+```./run_test```<br>
+
+Sample Output:
+```bash
+Loaded scan 5 with 123924 points
+[Level 0] Score: 0.994973 | Pose: 1 0 0 | Time: 0.23 sec
+Total nodes expanded: 900
+Best score found: 0.994973
+Translation: 1.0 0.0 0.0
+RPY: 0.0 0.0 0.0
+Score: 0.994973
+Time taken: 286.829 seconds
+```
+
+Other Outputs:
+- ```overlay_scan_fullsearch.xyz``` – Combined map + aligned scan for visualization
+- ```estimated_trajectory_fullsearch.csv``` – Final estimated pose and score
+
+Want to try fake initial guesses or scan perturbations? Compile and Run:
+- ```src/fake_initial_guess.cpp```
+- ```src/perturbed_scans_main.cpp```
+
+
+### Results
+
+The system was tested on real LiDAR data from the KITTI Sequence 00. The implementation successfully aligned incoming scans to a pre-built voxel map using a branch-and-bound search over a 4D pose space. Qualitative results showed progressive convergence during scan-to-map alignment, with clear visual overlap even under moderate perturbations or poor initial guesses.
+
+- Progressive scan alignment.
+- Robust to small spatial perturbations.
+- Sensitive to large yaw errors.
+- CPU-only full search was slow, highlighting the need for optimization.
+
+For explanation of the algroithm, quantitative results (ATE, AOE), experimental comparisons, limitations, and future work discussion, please refer to the full project report. <br>
+
+Below is a video that demonstrates global scan-to-map alignment using a CPU-only implementation of the 3D-BBS (Branch-and-Bound Scan Matching) algorithm. <br>
+
+The incoming LiDAR scan (Frame 6) is aligned against a voxelized map built from Frames 0 to 4 of the KITTI Odometry Sequence 00. The visualization shows how the scan gradually aligns to the map as the branch-and-bound traversal progresses, illustrating the effectiveness of the method without relying on GPU acceleration. <br>
+
+Red points represent the transformed scan under different pose guesses. As the Branch-and-Bound search progresses, the scan shifts from misaligned outskirts to a tightly overlapping position, maximizing alignment with the blue voxel map.
+
+
+https://github.com/user-attachments/assets/cbed788c-8b98-42a7-a673-2f8840c93634
 
 
 ### Acknowledgements
