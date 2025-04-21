@@ -4,24 +4,12 @@
 ### Table of Content
 * [About the Project](#about-the-project)
 * [File Structure](#file-structure)
-  * [Key Features](#key-features)
-  * [Image Of The Robot](#image-of-the-robot)
-  * [Frame Assignment For The Robot Along With Its DH Parameters](#frame-assignment-for-the-robot-along-with-its-dh-parameters)
-  * [DH Table](#dh-table)
-* [Constraints Imposed On The Robot](#constraints-imposed-on-the-robot)
-* [Our Approach](#our-approach)
-  * [The Main Pick and Place Code](#the-main-pick-and-place-code)
-  * [The Numerical Inverse Kinematics Code](#the-numerical-inverse-kinematics-code)
-  * [The Trajectory Planning Code](#the-trajectory-planning-code)
-  * [The Obstacle Avoidance Code](#the-obstacle-avoidance-code)
-* [Some-Information-Regarding-What-Each-Code-File-Does](#some-information-regarding-what-each-code-file-does)
-* [Results](#Results)
-  * [Pick and Place In MATLAB Simulation](#pick-and-place-in-matlab-simulation)
-  * [Pick and Place Using The Real PincherX100](#pick-and-place-using-the-real-pincherx100)
-  * [Pick and Place Along With Obstacle Avoidance](#pick-and-place-along-with-obstacle-avoidance)
+* [Setup and Build Instructions](#setup-and-build-instructions)
+  * [Prerequisites](#prerequisites)
+  * [Build Instructions](#build-instructions)
+  * [Run the Full Search Localization](#run-the-full-search-localization)
 * [Acknowledgements](#acknowledgements)
-* [Contributors](#contributors)
-* [Contact](#contact)
+
 
   
 ### About the Project
@@ -115,6 +103,28 @@ Includes tools for:
    ┣ 📜README.md
 ``` 
 
+### Setup & Build Instructions
+#### Prerequisites
+
+Make sure the following dependencies are installed:
+- C++17 compiler (e.g., g++-9 or newer)
+- Eigen3 (tested with Eigen 3.4)
+- CMake (optional, for larger builds)
+- Python 3 (for analysis scripts)
+- Python packages: numpy, matplotlib, pandas, scipy, seaborn
+
+#### Build Instructions
+
+```bash
+git clone https://github.com/yourusername/bbs_scan_matching_cpu.git
+cd bbs_scan_matching_cpu
+g++ -std=c++17 src/full_search_main.cpp src/voxel_map.cpp src/transform_utils.cpp src/score.cpp src/branch_and_bound_search.cpp src/kitti_io.cpp -Iinclude -I/usr/include/eigen3 -o run_test
+```
+
+#### Run the Full Search Localization:
+```./run_test```  <br>
+
+Make sure KITTI Sequence 00 Velodyne data is located in sequences/00/velodyne/ inside the project root.
 
 
 
