@@ -27,7 +27,6 @@ int main() {
     VoxelMap map(0.5);
     std::vector<Eigen::Vector3d> map_points;
 
-    // Build map from scans 0 to 3
     for (int i = 0; i < 4; ++i) {
         auto pts = readKittiBin(makeKittiPath(i));
         map_points.insert(map_points.end(), pts.begin(), pts.end());
@@ -36,7 +35,6 @@ int main() {
     }
     writePointCloud("overlay_map.xyz", map_points);
 
-    // Fake initial guesses for frame 5
     std::vector<Eigen::Vector3d> fake_guesses = {
         {2.5, 0.5, 0.0},   // close to GT
         {0.0, 0.0, 0.0},   // way off
@@ -65,7 +63,6 @@ int main() {
                   << " | RPY: " << result.rpy.transpose()
                   << " | Score: " << result.score << "\n";
 
-        // Save trajectory result
         std::ostringstream traj_name;
         traj_name << "estimated_trajectory_guess" << i << ".csv";
         std::ofstream traj_out(traj_name.str());
@@ -80,7 +77,6 @@ int main() {
                  << result.score << "\n";
         traj_out.close();
 
-        // Save overlay scan
         auto transformed = transformScan(scan, result.translation, result.rpy);
         std::ostringstream overlay_name;
         overlay_name << "overlay_scan_" << std::setw(2) << std::setfill('0') << frame

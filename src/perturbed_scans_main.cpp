@@ -26,7 +26,6 @@ int main() {
     VoxelMap map(0.5);
     std::vector<Eigen::Vector3d> map_points;
 
-    // Build map from scans 0 to 3
     for (int i = 0; i < 4; ++i) {
         auto pts = readKittiBin(makeKittiPath(i));
         map_points.insert(map_points.end(), pts.begin(), pts.end());
@@ -57,10 +56,8 @@ int main() {
         double fake_yaw = perturbations[i].second;
         Eigen::Vector3d fake_rpy(0.0, 0.0, fake_yaw);
 
-        // Perturb the scan artificially
         auto perturbed_scan = transformScan(original_scan, fake_translation, fake_rpy);
 
-        // Center search around true pose (robot doesn't know fake offset)
         Eigen::Vector3d search_min(-1.0, -1.0, -1.0);
         Eigen::Vector3d search_max(1.0, 1.0, 1.0);
 
@@ -70,7 +67,6 @@ int main() {
                   << " | RPY: " << result.rpy.transpose()
                   << " | Score: " << result.score << "\n";
 
-        // Save trajectory result
         std::ostringstream traj_name;
         traj_name << "estimated_trajectory_perturb" << i << ".csv";
         std::ofstream traj_out(traj_name.str());
@@ -85,7 +81,6 @@ int main() {
                  << result.score << "\n";
         traj_out.close();
 
-        // Save overlay scan
         auto transformed = transformScan(original_scan, result.translation, result.rpy);
         std::ostringstream overlay_name;
         overlay_name << "overlay_scan_" << std::setw(2) << std::setfill('0') << frame

@@ -59,7 +59,6 @@ int main() {
     std::cout << "Score: " << result.score << "\n";
     std::cout << "Time taken: " << duration << " seconds\n";
 
-    // Save CSV
     std::ofstream traj_out("estimated_trajectory_fullsearch.csv");
     traj_out << "frame,x,y,z,roll,pitch,yaw,score,time\n";
     traj_out << frame << ","
@@ -73,7 +72,6 @@ int main() {
              << duration << "\n";
     traj_out.close();
 
-    // Optional overlay
     auto transformed = transformScan(scan, result.translation, result.rpy);
     std::vector<Eigen::Vector3d> combined = map_points;
     combined.insert(combined.end(), transformed.begin(), transformed.end());
